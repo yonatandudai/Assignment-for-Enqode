@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 const app = express();
 
 // Middleware to parse JSON request body
-app.use(express.json());  // Not strictly necessary for this implementation
+app.use(express.json());
 
 // Endpoint for querying domain data
 app.get('/domain-lookup', (req, res) => {
