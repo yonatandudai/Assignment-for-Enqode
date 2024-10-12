@@ -1,9 +1,12 @@
 <template>
   <v-container>
     <v-card>
+      <!-- Title Section -->
       <v-card-title>
         Zero-Trust Score for {{ data.companyName }}
       </v-card-title>
+
+      <!-- Overall Zero-Trust Score Section -->
       <v-card-subtitle>
         Overall Zero-Trust Score: <strong>{{ data.ZeroTrustScore }}</strong>
         <v-progress-linear
@@ -19,7 +22,10 @@
       </v-card-subtitle>
 
       <v-divider></v-divider>
+
+      <!-- Metrics List Section -->
       <v-list>
+          <!-- Loop through each metric and display its name, score, description, and progress bar -->
           <v-list-item v-for="(metric, key) in data.metrics" :key="key">
             <v-list-item-content>
               <v-list-item-title>{{ key }}</v-list-item-title>
@@ -47,6 +53,7 @@
           <v-list>
             <v-list-item>
               <v-list-item-content>
+                <!-- Display observable data points -->
                 <v-list-item-title><strong>Average Shannon Entropy Score:</strong> {{ data.observableData.averageShannonEntropyScore }}</v-list-item-title>
                 <v-list-item-title><strong>Firewall Detected:</strong> {{ data.observableData.firewallDetected ? 'Yes' : 'No' }}</v-list-item-title>
                 <v-list-item-title><strong>DNSSEC Enabled:</strong> {{ data.observableData.DNSsecEnabled ? 'Yes' : 'No' }}</v-list-item-title>
@@ -62,6 +69,7 @@
 
       <v-divider></v-divider>
 
+      <!-- Risk Category Section -->
       <v-card-subtitle>
         Risk Category: <strong>{{ data.riskCategory }}</strong>
       </v-card-subtitle>
@@ -99,6 +107,11 @@ export default {
     };
   },
   methods: {
+    /**
+     * Returns a color based on the score of a metric.
+     * @param {number} score - The score of a metric.
+     * @returns {string} Color name ('green', 'orange', 'red')
+     */
     getMetricColor(score) {
       if (score >= 80) {
         return 'green';
@@ -108,6 +121,12 @@ export default {
         return 'red';
       }
     },
+
+    /**
+     * Returns a color based on the overall Zero-Trust Score.
+     * @param {number} score - The overall Zero-Trust Score.
+     * @returns {string} Color name ('green', 'orange', 'red')
+     */
     getOverallScoreColor(score) {
       if (score >= 80) {
         return 'green';
