@@ -1,0 +1,159 @@
+# Data Collection Backend
+
+This backend service collects, stores, and retrieves Zero-Trust Score data. Built with Node.js and Express, it provides two main API endpoints for data submission and retrieval.
+
+## Prerequisites
+- [Node.js](https://nodejs.org/) installed on your machine.
+
+## Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yonatandudai/Assignment-for-Enqode.git
+   cd part4
+   ```
+
+2. **Install Dependencies**:
+   In the project directory, run:
+   ```bash
+   npm install
+   ```
+
+3. **Run the Server**:
+   Start the server by running:
+   ```bash
+   node server.js
+   ```
+   The server will be accessible at `http://localhost:3000`.
+
+## Usage
+
+### API Endpoints
+
+#### POST /submit-data
+- **Description**: Accepts Zero-Trust Score data in JSON format and stores it.
+- **Request Body**: JSON object containing Zero-Trust Score information. Example:
+  ```json
+  {
+    "averageShannonEntropyScore": 7.8,
+    "firewallDetected": true,
+    "DNSsecEnabled": true,
+    "tlsVersion": "1.2",
+    "certificateBitStrength": 2048,
+    "securityHeadersImplemented": ["X-XSS-Protection", "X-Frame-Options"],
+    "openPortsDetected": 12
+  }
+  ```
+- **Response**:
+  ```json
+  { "message": "Data received and stored successfully." }
+  ```
+
+#### GET /get-data
+- **Description**: Retrieves all stored Zero-Trust Score data.
+- **Response**: Array of JSON objects with stored Zero-Trust Score data. Example:
+  ```json
+  [
+    {
+      "averageShannonEntropyScore": 7.8,
+      "firewallDetected": true,
+      "DNSsecEnabled": true,
+      "tlsVersion": "1.2",
+      "certificateBitStrength": 2048,
+      "securityHeadersImplemented": ["X-XSS-Protection", "X-Frame-Options"],
+      "openPortsDetected": 12
+    }
+  ]
+  ```
+
+## Data Persistence
+By default, this backend stores data in memory, meaning that the data will be lost when the server restarts. If you’d like to make the data persistent, here is an approach you can take:
+
+### File-Based Persistence
+You can store the data in a local file, such as `zeroTrustData.json`, which will allow the data to be retained between server restarts.
+
+To enable file-based persistence, add or replace your existing code in `server.js` with the following code:
+
+```javascript
+const express = require('express');
+const fs = require('fs');
+const app = express();
+const port = 3000;
+const dataFilePath = 'zeroTrustData.json';
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+// Initialize in-memory data storage
+let zeroTrustData = [];
+
+// Load data from file if available
+if (fs.existsSync(dataFilePath)) {
+  const fileData = fs.readFileSync(dataFilePath, 'utf8');
+  zeroTrustData = JSON.parse(fileData);
+}
+
+// Endpoint to submit Zero-Trust Score data
+app.post('/submit-data', (req, res) => {
+  const data = req.body;
+  zeroTrustData.push(data);
+  fs.writeFileSync(dataFilePath, JSON.stringify(zeroTrustData, null, 2));
+  res.status(201).send({ message: 'Data received and stored successfully.' });
+});
+
+// Endpoint to retrieve stored data
+app.get('/get-data', (req, res) => {
+  res.status(200).json(zeroTrustData);
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+- Now, when data is submitted through the `/submit-data` endpoint, it will be appended to `zeroTrustData.json`. The file will automatically be created in the project directory if it doesn’t already exist. On server startup, the file’s contents will be loaded into memory.
+
+## Testing the API
+You can test the API endpoints using **Postman**, **curl**, or any other HTTP client tool.
+
+- **Using curl**:
+  - To submit data:
+    ```bash
+    curl -X POST http://localhost:3000/submit-data -H "Content-Type: application/json" -d '{
+      "averageShannonEntropyScore": 7.8,
+      "firewallDetected": true,
+      "DNSsecEnabled": true,
+      "tlsVersion": "1.2",
+      "certificateBitStrength": 2048,
+      "securityHeadersImplemented": ["X-XSS-Protection", "X-Frame-Options"],
+      "openPortsDetected": 12
+    }'
+    ```
+  - To retrieve data:
+    ```bash
+    curl http://localhost:3000/get-data
+    ```
+
+
+- **Using Postman**:
+  - Open Postman and create a new request.
+  - Set the request type to `POST` and enter the URL: `http://localhost:3000/submit-data`.
+  - In the `Body` tab, select `raw` and choose `JSON` from the dropdown menu. Paste the JSON data in the following format:
+    ```json
+    {
+      "averageShannonEntropyScore": 7.8,
+      "firewallDetected": true,
+      "DNSsecEnabled": true,
+      "tlsVersion": "1.2",
+      "certificateBitStrength": 2048,
+      "securityHeadersImplemented": ["X-XSS-Protection", "X-Frame-Options"],
+      "openPortsDetected": 12
+    }
+    ```
+  - Click **Send** to submit the data. You should receive a success message.
+  - To retrieve the data, create a `GET` request to `http://localhost:3000/get-data` and send it. You should see the array of all stored data.
+
+
+## License
+This project is licensed under the MIT License.
