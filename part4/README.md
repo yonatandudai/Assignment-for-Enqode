@@ -153,7 +153,3 @@ You can test the API endpoints using **Postman**, **curl**, or any other HTTP cl
     ```
   - Click **Send** to submit the data. You should receive a success message.
   - To retrieve the data, create a `GET` request to `http://localhost:3000/get-data` and send it. You should see the array of all stored data.
-
-
-## License
-This project is licensed under the MIT License.

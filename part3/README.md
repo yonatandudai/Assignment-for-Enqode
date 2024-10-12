@@ -154,6 +154,3 @@ You can refer to the screenshot for an example of how it looks in this path:
  `part3\screenshot of the widget in action.png`
 
 ---
-
-### License
-This project is licensed under the MIT License.
