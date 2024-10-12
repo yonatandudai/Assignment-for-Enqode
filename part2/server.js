@@ -12,6 +12,7 @@ app.get('/domain-lookup', (req, res) => {
         return res.status(400).send('Domain query parameter is required.');
     }
 
+    // Executes the nslookup command for the specified domain
     exec(`nslookup ${domain}`, (err, stdout, stderr) => {
         if (err) {
             return res.status(500).send(`Error: ${stderr}`);
