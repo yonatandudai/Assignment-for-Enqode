@@ -29,14 +29,13 @@ This repository contains the Zero-Trust Score Widget built with Vue.js and Vueti
 2. **Clone the Repository**: Clone the repository that contains the `ZeroTrustScoreWidget.vue` file:
 
    ```bash
-   git clone https://github.com/your-username/zerotrust-score-widget.git
+   git clone https://github.com/yonatandudai/Assignment-for-Enqode.git
    ```
-
-- **Replace `your-username`** with your GitHub username or the repository owner's username.
 
 3. **Navigate to the Cloned Directory**: After cloning the repository, change into the directory by running:
 
    ```bash
+   cd part3
    cd zerotrust-score-widget
    ```
 
