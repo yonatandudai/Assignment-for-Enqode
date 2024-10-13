@@ -35,7 +35,7 @@ If you haven’t set up your Vue application with Vuetify, you can do so with th
    ```bash
    vue create zerotrust-score-app
    ```
-
+* During the setup, you’ll be prompted to choose a preset. Select the Default ([Vue 3] babel, eslint) option.
 
 3. **Navigate to the Project Directory**:
    
@@ -50,6 +50,8 @@ If you haven’t set up your Vue application with Vuetify, you can do so with th
    ```bash
    vue add vuetify
    ```
+* When prompted, select Vuetify 3 - Vue CLI (preview) to add Vuetify version 3.
+
 ### Setting Up the Zero-Trust Score Widget
 
 1. **Clone the Repository**:
