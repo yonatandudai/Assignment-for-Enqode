@@ -27,7 +27,6 @@
       <v-list>
           <!-- Loop through each metric and display its name, score, description, and progress bar -->
           <v-list-item v-for="(metric, key) in data.metrics" :key="key">
-            <v-list-item-content>
               <v-list-item-title>{{ key }}</v-list-item-title>
               <v-list-item-subtitle>
                 Score: {{ metric.score }} - {{ metric.description }}
@@ -41,7 +40,6 @@
                   {{ metric.score }}%
                 </template>
               </v-progress-linear>
-            </v-list-item-content>
           </v-list-item>
       </v-list>
 
@@ -52,7 +50,6 @@
         <v-card>
           <v-list>
             <v-list-item>
-              <v-list-item-content>
                 <!-- Display observable data points -->
                 <v-list-item-title><strong>Average Shannon Entropy Score:</strong> {{ data.observableData.averageShannonEntropyScore }}</v-list-item-title>
                 <v-list-item-title><strong>Firewall Detected:</strong> {{ data.observableData.firewallDetected ? 'Yes' : 'No' }}</v-list-item-title>
@@ -61,7 +58,6 @@
                 <v-list-item-title><strong>Certificate Bit Strength:</strong> {{ data.observableData.certificateBitStrength }}</v-list-item-title>
                 <v-list-item-title><strong>Open Ports Detected:</strong> {{ data.observableData.openPortsDetected }}</v-list-item-title>
                 <v-list-item-title><strong>Security Headers Implemented:</strong> {{ data.observableData.securityHeadersImplemented.join(', ') }}</v-list-item-title>
-              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-card>

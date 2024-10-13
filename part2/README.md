@@ -1,9 +1,8 @@
 # Darkweb Scanner API
 
-This project implements a simple API that allows users to perform DNS lookups using both the `nslookup` command-line tool and an external DNS lookup API. The API is built with Node.js and Express and returns structured JSON data, making it easy to integrate into other applications.
+* This project implements a simple API that allows users to perform DNS lookups using both the `nslookup` command-line tool and an external DNS lookup API. The API is built with Node.js and Express and returns structured JSON data, making it easy to integrate into other applications.
 
-## Note
-The code demonstrating my API implementation is in the file located at:  
+* The code demonstrating my API implementation is in the file located at:  
 ```Assignment-for-Enqode\part2\server.js```
 
 ## Table of Contents
@@ -14,13 +13,12 @@ The code demonstrating my API implementation is in the file located at:
 - [Testing with Postman](#testing-with-postman)
 
 ## Requirements
-- Node.js
-- npm (Node Package Manager)
+- [Node.js](https://nodejs.org/) installed on your machine.
 
 ## Design Choices
-- This implementation combines command-line tools (`nslookup`) with an external DNS lookup API to provide comprehensive DNS data for specified domains.
-- While the original requirement suggested querying dark web data, I chose a simpler approach that avoids dependency on specialized dark web services and focuses on DNS data.
-- I initially explored using various APIs but found that either API keys were not free or they lacked sufficient coverage for this purpose. This hybrid approach offers more detailed information while keeping costs low.
+This implementation combines the nslookup command-line tool with an external DNS lookup API to deliver comprehensive DNS data for specified domains.  
+Initially, I explored a range of external API providers to query dark web data, according to the original requirement. I evaluated several options, including IntelX, Twingly, and SecurityTrails. However, these APIs presented limitations, such as requiring paid access and API key restrictions. After testing these options, I concluded that a hybrid approach using nslookup and a general DNS lookup API would offer a more reliable and cost-effective solution.  
+This implementation focuses on providing enhanced DNS information directly. While it does not query dark web data specifically, it achieves detailed results and avoids dependency on specialized, often costly, dark web services, making it a practical choice for this assignment.  
 
 ## Setup
 1. **Clone the repository**:

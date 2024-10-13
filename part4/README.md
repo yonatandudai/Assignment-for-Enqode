@@ -2,7 +2,13 @@
 
 This backend service collects, stores, and retrieves Zero-Trust Score data. Built with Node.js and Express, it provides two main API endpoints for data submission and retrieval.
 
-## Prerequisites
+## Table of Contents
+- [Requirements](#Requirements)
+- [Setup](#setup)
+- [API Endpoints](#api-endpoints)
+- [Testing the API](#testing-the-api)
+
+## Requirements
 - [Node.js](https://nodejs.org/) installed on your machine.
 
 ## Setup
@@ -26,9 +32,7 @@ This backend service collects, stores, and retrieves Zero-Trust Score data. Buil
    ```
    The server will be accessible at `http://localhost:3000`.
 
-## Usage
-
-### API Endpoints
+## API Endpoints
 
 #### POST /submit-data
 - **Description**: Accepts Zero-Trust Score data in JSON format and stores it.
@@ -65,54 +69,6 @@ This backend service collects, stores, and retrieves Zero-Trust Score data. Buil
     }
   ]
   ```
-
-## Data Persistence
-By default, this backend stores data in memory, meaning that the data will be lost when the server restarts. If you’d like to make the data persistent, here is an approach you can take:
-
-### File-Based Persistence
-You can store the data in a local file, such as `zeroTrustData.json`, which will allow the data to be retained between server restarts.
-
-To enable file-based persistence, add or replace your existing code in `server.js` with the following code:
-
-```javascript
-const express = require('express');
-const fs = require('fs');
-const app = express();
-const port = 3000;
-const dataFilePath = 'zeroTrustData.json';
-
-// Middleware to parse JSON request bodies
-app.use(express.json());
-
-// Initialize in-memory data storage
-let zeroTrustData = [];
-
-// Load data from file if available
-if (fs.existsSync(dataFilePath)) {
-  const fileData = fs.readFileSync(dataFilePath, 'utf8');
-  zeroTrustData = JSON.parse(fileData);
-}
-
-// Endpoint to submit Zero-Trust Score data
-app.post('/submit-data', (req, res) => {
-  const data = req.body;
-  zeroTrustData.push(data);
-  fs.writeFileSync(dataFilePath, JSON.stringify(zeroTrustData, null, 2));
-  res.status(201).send({ message: 'Data received and stored successfully.' });
-});
-
-// Endpoint to retrieve stored data
-app.get('/get-data', (req, res) => {
-  res.status(200).json(zeroTrustData);
-});
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-```
-
-- Now, when data is submitted through the `/submit-data` endpoint, it will be appended to `zeroTrustData.json`. The file will automatically be created in the project directory if it doesn’t already exist. On server startup, the file’s contents will be loaded into memory.
 
 ## Testing the API
 You can test the API endpoints using **Postman**, **curl**, or any other HTTP client tool.

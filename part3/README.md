@@ -1,68 +1,95 @@
 # Zero-Trust Score Widget
 
-This repository contains the Zero-Trust Score Widget built with Vue.js and Vuetify. This widget displays a company's Zero-Trust Score along with detailed metrics, observable data, and risk category information.
+This repository contains the Zero-Trust Score Widget built with Vue.js and Vuetify. This widget displays a company's Zero-Trust Score along with detailed metrics, observable data, and risk category information.  
+In this README, you’ll find step-by-step instructions on how to integrate and use the widget in your own Vue application.
+
+- The Vue.js component code for the widget is located in the following path:  
+```Assignment-for-Enqode/part3/zerotrust-score-widget/src/components/ZeroTrustScoreWidget.vue```
+
 
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
-- [Customization](#customization)
+- [Integration into a Vue Application](#integration-into-a-vue-application)
 - [Running Your Application](#running-your-application)
-- [Example JSON Data](#example-json-data)
-- [Demo or Screenshot](#demo-or-screenshot)
-- [License](#license)
+- [Try It on Vuetify Playground](#try-it-on-vuetify-playground)
+- [Screenshot of The Widget](#screenshot-of-the-widget)
+
 
 ## Installation
 
-### Prerequisites
+### Requirements
+- [Node.js](https://nodejs.org/) installed on your machine.
 
-1. Ensure you have Node.js, Vue.js, and Vuetify installed in your project.
+### Setting Up Vue and Vuetify
+If you haven’t set up your Vue application with Vuetify, you can do so with the following steps:
 
-   If you haven't done this yet, you can create a new Vue project with Vuetify by running:
-
+1. **Install Vue CLI**: Run the following command to install Vue CLI globally, if it's not installed already.
+   
    ```bash
-   vue create my-project
-   cd my-project
-   vue add vuetify
+   npm install -g @vue/cli
    ```
 
-2. **Clone the Repository**: Clone the repository that contains the `ZeroTrustScoreWidget.vue` file:
+2. **Create a New Vue Project**:
+   
+   ```bash
+   vue create zerotrust-score-app
+   ```
 
+
+3. **Navigate to the Project Directory**:
+   
+   ```bash
+   cd zerotrust-score-app
+   ```
+
+4. **Add Vuetify to Your Project**:
+   
+   Inside the project directory, add Vuetify with the following command:
+
+   ```bash
+   vue add vuetify
+   ```
+### Setting Up the Zero-Trust Score Widget
+
+1. **Clone the Repository**:
+   
    ```bash
    git clone https://github.com/yonatandudai/Assignment-for-Enqode.git
    ```
 
-3. **Navigate to the Cloned Directory**: After cloning the repository, change into the directory by running:
+2. **Copy the Widget File**: After cloning the repository, locate the `ZeroTrustScoreWidget.vue` file and copy it into your Vue app’s `src/components` directory:
 
-   ```bash
-   cd part3
-   cd zerotrust-score-widget
-   ```
-
-4. **Locate the Widget File**: Inside the cloned repository, locate the `ZeroTrustScoreWidget.vue` file.  
-It will be found in this path:  `part3\zerotrust-score-widget\src\components`
-
-5. **Copy the Widget File**: To copy the `ZeroTrustScoreWidget.vue` file to your Vue project's `src/components` directory, use one of the following commands (adjust the path if necessary):
-
+   - **Source Path in Cloned Directory**:
      ```bash
-     copy ZeroTrustScoreWidget.vue C:\path\to\your\vue-project\src\components\
+     Assignment-for-Enqode/part3/zerotrust-score-widget/src/components/ZeroTrustScoreWidget.vue
      ```
 
-- Replace `/path/to/your/vue-project` or `C:\path\to\your\vue-project` with the actual path to your Vue project.
+   - **Destination Path in your Vue application**:
+     ```bash
+     zerotrust-score-app/src/components/
+     ```
 
-6. **Verify the File Copy**: Navigate to your Vue project's `src/components` directory and ensure the `ZeroTrustScoreWidget.vue` file is present.
+   - Simply place the `ZeroTrustScoreWidget.vue` file in your Vue app’s `src/components` directory.  
 
-## Usage
+## Integration into a Vue Application
+
+You can see an example of how the `App.vue` file is structured in the **cloned project** (which contains only the `ZeroTrustScoreWidget` component). This example can be found at:  
+```Assignment-for-Enqode/part3/zerotrust-score-widget/src/App.vue```  
+
+Here’s how you can integrate the widget into your own Vue application:
 
 ### 1. Import the Component
-Open the Vue component file where you want to use the widget (for example, `App.vue` or any other component file in `src/components/`) and import `ZeroTrustScoreWidget`:
+In your own Vue application, open the file where you want to use the widget. Most commonly, this will be the main `App.vue` file located in your `src/` directory.
+
+For example, in your own `App.vue` file (typically located at `zerotrust-score-app/src/App.vue`), add the following import statement at the top of the script section:
 
 ```javascript
 import ZeroTrustScoreWidget from './components/ZeroTrustScoreWidget.vue';
 ```
 
 ### 2. Register the Component
-In the same Vue component file (e.g., `App.vue`), register `ZeroTrustScoreWidget` in the `components` section:
+In the same `App.vue` file  within your project, register `ZeroTrustScoreWidget` in the `components` section:
 
 ```javascript
 export default {
@@ -73,7 +100,7 @@ export default {
 ```
 
 ### 3. Add the Component to Your Template
-In the template section of the same component file (e.g., `App.vue`), use the component where you want it to appear:
+In the template section of the same file, use the `ZeroTrustScoreWidget` component where you want it to appear:
 
 ```html
 <template>
@@ -83,61 +110,34 @@ In the template section of the same component file (e.g., `App.vue`), use the co
 </template>
 ```
 
-## Customization
-
-The widget uses progress bars to visually represent each metric based on its score, allowing for an easy-to-understand overview of the company's security status.
-
-You can customize the data displayed in the widget by modifying the `data` property within the `ZeroTrustScoreWidget.vue` file. Here’s an example of the expected JSON structure:
-
-```javascript
-data() {
-  return {
-    data: {
-      companyName: "FinTechSecure Ltd.",
-      ZeroTrustScore: 58.5,
-      metrics: {
-        NetworkSecurity: { score: 80, description: "Measures the security of the network infrastructure." },
-        DataProtection: { score: 70, description: "Assesses the strength of data protection." },
-        // other metrics...
-      },
-      observableData: {
-        averageShannonEntropyScore: 7.8,
-        firewallDetected: true,
-        DNSsecEnabled: true,
-        tlsVersion: "1.2",
-        certificateBitStrength: 2048,
-        securityHeadersImplemented: ["X-XSS-Protection", "X-Frame-Options"],
-        openPortsDetected: 12
-      },
-      riskCategory: "Moderate Risk"
-    }
-  };
-}
-```
-
-### Customization Options
-   - **companyName**: Name of the company being evaluated.
-   - **ZeroTrustScore**: The overall Zero-Trust Score.
-   - **metrics**: Object containing different metric categories like Network Security, Data Protection, etc., along with their scores and descriptions.
-   - **observableData**: Contains additional observable information like `firewallDetected`, `DNSsecEnabled`, and `openPortsDetected`.
-   - **riskCategory**: Describes the overall risk category (e.g., Low Risk, Moderate Risk).
-
-Modify these values as needed to reflect the data you want to display in the widget.
-
+**Note:** Make sure that the `App.vue` file you’re modifying is within your own Vue application directory, such as `zerotrust-score-app/src/App.vue`. Adjust file paths as necessary according to your project’s structure.
 
 ## Running Your Application
 
-To run your application, navigate to your Vue project directory and execute:
+- To run your application, open your terminal or command prompt and navigate to your Vue project directory. You can do this by using the `cd` command and specifying the path to your project.
 
-```bash
-npm run serve
-```
+- For example, if your project directory is named `zerotrust-score-project`, you can navigate to it as follows:
 
-This command will start your Vue.js development server, allowing you to view the widget in action in your browser.
+   ```bash
+  cd /path/to/your/projects/zerotrust-score-project
+   ```
 
-You can modify the values to customize the widget's content.
+- Replace `/path/to/your/projects/` with the actual path where your Vue project is located. For example, if your project is in your Documents folder, you might use:
 
-## Try It on Vuetify Playground
+    ```bash
+  cd C:/Users/YourUsername/Documents/zerotrust-score-project
+    ```
+- Replace `YourUsername` with your actual username.
+
+- Once you’re in the project directory, start the Vue development server by running:
+
+  ```bash
+  npm run serve
+  ```
+
+- This will start the server, and you can then access your application in a web browser at the URL displayed in your terminal, typically `http://localhost:8080`.
+
+## Try it on Vuetify Playground
 
 You can also test the **Zero-Trust Score Widget** directly on the Vuetify Playground.
 
@@ -145,12 +145,9 @@ You can also test the **Zero-Trust Score Widget** directly on the Vuetify Playgr
 2. Copy the component code from `ZeroTrustScoreWidget.vue`.
 3. Paste the code into the playground editor and run it.
 
-This makes it easy to see the widget in action and make any adjustments before integrating it into your Vue project.
-
-
-## Demo or Screenshot
+## Screenshot of The Widget
 
 You can refer to the screenshot for an example of how it looks in this path:  
- `part3\screenshot of the widget in action.png`
+ `part3\screenshot-of-widget.png`
 
 ---
